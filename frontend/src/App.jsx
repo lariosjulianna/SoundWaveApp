@@ -10,27 +10,37 @@
 
 // export default App;
 
+/**
+ * App.jsx controls routing
+ */
 
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//import HomePage from "./pages/HomePage";
 import ArtistPage from "./pages/ArtistPage";
-//import AlbumsPage from "./pages/AlbumPage";
+//import AlbumPage from "./pages/AlbumPage";
+// import SongPage from "./pages/SongPage";
+//import FeedPage from "./pages/FeedPage";
 
-// function App() {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/" element={<ArtistPage />} />
-//         <Route path="/artists/:artistId/albums" element={<AlbumsPage />} />
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// }
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<ArtistPage />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+  
+        <Route path="/artists" element={<ArtistPage />} />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App;
+ export default App;
+
+
+ /**
+  * 
+  * <Route path="/albums" element={<AlbumPage />} />
+        <Route path="/songs" element={<SongPage />} />
+        <Route path="/feed" element={<FeedPage />} />
+          <Route path="/" element={<HomePage />} />
+  */

@@ -1,10 +1,8 @@
 package com.example.soundwave.service.impl;
 
-//import com.example.soundwave.dto.musicbrainz.AlbumDto;
 import com.example.soundwave.dto.musicbrainz.SongDto;
 import com.example.soundwave.service.SongService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,6 +21,7 @@ public class SongServiceImpl implements SongService {
     /**
      * Temporary in-mem song list
      */
+
     private static final List<SongDto> SONGS = List.of(
             new SongDto(UUID.randomUUID(), "Girl Like Me", UUID.randomUUID(), UUID.randomUUID()),
             new SongDto(UUID.randomUUID(), "Vueltas", UUID.randomUUID(), UUID.randomUUID()),
@@ -59,7 +58,7 @@ public class SongServiceImpl implements SongService {
 
 
     /**
-     * Fetch a single album by ID
+     * Fetch a single song by Id
      */
 
     @Override

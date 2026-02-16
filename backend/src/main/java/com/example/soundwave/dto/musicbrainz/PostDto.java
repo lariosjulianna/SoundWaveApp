@@ -5,11 +5,16 @@ import java.util.UUID;
 
 public class PostDto {
 
-    private UUID id;
-    private UUID userId;
-    private Instant createdAt;
-    private UUID topicId;
-    private String content;
+    private final UUID id;
+    private final UUID userId;
+    private final UUID topicId;
+    private final String content;
+    private final Instant createdAt;
+
+
+    /**
+     * Constructor
+     */
 
     public PostDto(UUID id, UUID userId, Instant createdAt, UUID topicId, String content) {
         this.id = id;
@@ -19,9 +24,18 @@ public class PostDto {
         this.content = content;
     }
 
+
+    /**
+     * Getters
+     */
+
     public UUID getId() { return id; }
+
     public UUID getUserId() { return userId; }
+
     public Instant getCreatedAt() { return createdAt; }
+
     public UUID getTopicId() { return topicId; }
+
     public String getContent() { return content; }
 }

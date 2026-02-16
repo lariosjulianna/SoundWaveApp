@@ -3,7 +3,6 @@ package com.example.soundwave.controller;
 import com.example.soundwave.dto.musicbrainz.ArtistDto;
 import com.example.soundwave.service.ArtistService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**

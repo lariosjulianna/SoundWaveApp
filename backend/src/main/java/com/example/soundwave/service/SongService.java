@@ -4,7 +4,7 @@ import com.example.soundwave.dto.musicbrainz.SongDto;
 import java.util.List;
 
 /**
- * Service interface for artist-related business logic
+ * Service interface for song-related business logic
  *
  * This layer abstracts where artist data comes from
  * (MusicBrainz, db, cache...)
@@ -39,6 +39,5 @@ public interface SongService {
      */
 
     SongDto getSongById(String songId);
-
 
 }

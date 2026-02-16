@@ -2,18 +2,27 @@ package com.example.soundwave.dto.musicbrainz;
 
 import java.util.UUID;
 
-//@Getter
 public class AlbumDto {
 
-    private UUID id;
-    private String title;
-    private UUID artistId;
+    private final UUID id;
+    private final String title;
+    private final UUID artistId;
+
+
+    /**
+     * Constructor
+     */
 
     public AlbumDto(UUID id, String title, UUID artistId) {
         this.id = id;
         this.title = title;
         this.artistId = artistId;
     }
+
+
+    /**
+     * Getters
+     */
 
     public UUID getId() {
         return id;
@@ -26,20 +35,20 @@ public class AlbumDto {
     public UUID getArtistId() {
         return artistId;
     }
-
-    // setters
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setArtistId(UUID artistId) {
-        this.artistId = artistId;
-    }
-
-
 }
+//    // setters
+//
+//    public void setId(UUID id) {
+//        this.id = id;
+//    }
+//
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public void setArtistId(UUID artistId) {
+//        this.artistId = artistId;
+//    }
+//
+//
+//}

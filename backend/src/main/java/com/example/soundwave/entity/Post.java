@@ -1,12 +1,16 @@
 package com.example.soundwave.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(name = "posts")
+@Getter
+@Setter
 public class Post {
 
     @Id
@@ -24,18 +28,17 @@ public class Post {
 
     @Column(nullable = false, length = 1000)
     private String content;
-    // define the enum
 
+    // ! finish
     /**
-     * Enumerated types allow
+     * Enumerated types allow...
      */
 
 //    private UUID topicId;
-//
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TopicType topicType;
-
 
 
     public enum TopicType {
@@ -44,9 +47,13 @@ public class Post {
         SONG
     }
 
-    // Constructor
 
-    public Post() {}
+    /**
+     * Constructors
+     */
+
+    public Post() {
+    }
 
     public Post(UUID userId, Instant createdAt, UUID topicId, String content) {
 
@@ -55,58 +62,4 @@ public class Post {
         this.topicId = topicId;
         this.content = content;
     }
-
-    // getters/setters
-
-    public UUID getId() {
-
-        return id;
-    }
-
-    public void setId(UUID id) {
-
-        this.id = id;
-    }
-
-    public UUID getUserId() {
-
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-
-        this.userId = userId;
-    }
-
-    public Instant getCreatedAt() {
-
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-
-        this.createdAt = createdAt;
-    }
-
-    public UUID getTopicId() {
-
-        return topicId;
-    }
-
-    public void setTopicId(UUID topicId) {
-
-        this.topicId = topicId;
-    }
-
-    public String getContent() {
-
-        return content;
-    }
-
-    public void setContent(String content) {
-
-        this.content = content;
-    }
-
-
 }

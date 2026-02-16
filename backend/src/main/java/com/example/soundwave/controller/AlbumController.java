@@ -2,21 +2,17 @@ package com.example.soundwave.controller;
 
 import com.example.soundwave.dto.musicbrainz.AlbumDto;
 import com.example.soundwave.service.AlbumService;
-//import com.example.soundwave.service.ArtistService;
 import org.springframework.web.bind.annotation.*;
-//import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 
 /**
- * REST controller responsible for artist-related API endpoints
+ * REST controller responsible for album-related API endpoints
  *
- * Handles fetching artists via the MusicBrainz service
+ * Handles fetching aalbums via the MusicBrainz service
  */
 
 @RestController
 @RequestMapping("/albums")
-//@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173") // allows frontend dev server access
 public class AlbumController {
 
@@ -33,13 +29,13 @@ public class AlbumController {
         this.albumService = albumService;
     }
 
+
     /**
      * Return a list of random albums
      */
 
     @GetMapping("/random")
     public List<AlbumDto> getRandomAlbums() {
-
         return albumService.getRandomAlbums();
     }
 

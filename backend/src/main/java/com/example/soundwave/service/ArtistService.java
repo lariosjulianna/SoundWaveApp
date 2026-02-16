@@ -4,14 +4,13 @@ import com.example.soundwave.dto.musicbrainz.ArtistDto;
 import java.util.List;
 
 /**
- * Service interface for artist-related business logic.
+ * Service interface for artist-related business logic
  *
  * This layer abstracts where artist data comes from
- * (MusicBrainz, database, cache, etc.).
+ * (MusicBrainz, database, cache, etc.)
  */
 
 public interface ArtistService {
-
 
     /**
      * Returns a list of random artists.

@@ -4,10 +4,15 @@ import java.util.UUID;
 
 public class SongDto {
 
-    private UUID id;
-    private String title;
-    private UUID albumId;
-    private UUID artistId;
+    private final UUID id;
+    private final String title;
+    private final UUID albumId;
+    private final UUID artistId;
+
+
+    /**
+     * Constructor
+     */
 
     public SongDto(UUID id, String title, UUID albumId, UUID artistId) {
         this.id = id;
@@ -16,8 +21,16 @@ public class SongDto {
         this.artistId = artistId;
     }
 
+
+    /**
+     * Getters
+     */
+
     public UUID getId() { return id; }
+
     public String getTitle() { return title; }
+
     public UUID getAlbumId() { return albumId; }
+
     public UUID getArtistId() { return artistId; }
 }

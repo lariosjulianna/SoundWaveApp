@@ -1,21 +1,21 @@
-const API_BASE_URL = "http://localhost:8080/albums";
+const API_BASE_URL = "http://localhost:8080/songs";
 
-export async function getRandomAlbums() {
+export async function getRandomSongs() {
   const response = await fetch(`${API_BASE_URL}/random`);
   if (!response.ok) {
-    throw new Error("Failed to fetch albums");
+    throw new Error("Failed to fetch songs");
   }
   return response.json();
 }
 
-export async function searchAlbums(query) {
+export async function searchSongs(query) {
   const response = await fetch(
     `${API_BASE_URL}/search?q=${encodeURIComponent(query)}`
   );
   if (!response.ok) {
-    throw new Error("Failed to search albums");
+    throw new Error("Failed to search songs");
   }
   return response.json();
 }
 
-// need for get album by Id
+// need for get song by Id

@@ -1,9 +1,7 @@
 package com.example.soundwave.service;
 
 import com.example.soundwave.dto.musicbrainz.UserDto;
-
 import java.util.List;
-
 
 /**
  * Service interface for user-related business logic
@@ -12,7 +10,7 @@ import java.util.List;
  * (db, cache...)
  */
 
-//! interface v class
+// ! interface v class
 
 public interface UserService {
 

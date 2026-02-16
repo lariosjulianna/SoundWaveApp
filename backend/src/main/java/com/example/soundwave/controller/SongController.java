@@ -3,7 +3,6 @@ package com.example.soundwave.controller;
 import com.example.soundwave.dto.musicbrainz.SongDto;
 import com.example.soundwave.service.SongService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**
@@ -29,6 +28,7 @@ public class SongController {
 
         this.songService = songService;
     }
+
 
     /**
      * Return a list of random songs

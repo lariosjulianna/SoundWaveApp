@@ -4,16 +4,23 @@ import java.util.UUID;
 
 public class ArtistDto {
 
-    private UUID id;
-    private String name;
-    //dob
-    // email
-    // hashed pass?
+    private final UUID id;
+    private final String name;
+
+
+    /**
+     * Constructor
+     */
 
     public ArtistDto(UUID id, String name) {
         this.id = id;
         this.name = name;
     }
+
+
+    /**
+     * Getters
+     */
 
     public UUID getId() {
 
@@ -24,13 +31,16 @@ public class ArtistDto {
 
         return name;
     }
-
-    // setter should be void
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
+//    /**
+//     * Setters (always void)
+//     */
+//
+//    public void setId(UUID id) {
+//        this.id = id;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+

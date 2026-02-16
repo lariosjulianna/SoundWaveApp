@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getRandomArtists, searchArtists } from "../services/artistService";
-import ArtistCard from "../components/ArtistCard";
+import { getRandomSongs, searchSongs } from "../services/songService";
+import SongCard from "../components/SongCard";
 
-export default function ArtistPage() {
-  const [artists, setArtists] = useState([]);
+export default function SongPage() {
+  const [songs, setSongs] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -14,8 +14,8 @@ export default function ArtistPage() {
   const loadRandom = async () => {
     try {
       setLoading(true);
-      const data = await getRandomArtists();
-      setArtists(data);
+      const data = await getRandomASongs();
+      setSongs(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -28,8 +28,8 @@ export default function ArtistPage() {
 
     try {
       setLoading(true);
-      const results = await searchArtists(query);
-      setArtists(results);
+      const results = await searchSongs(query);
+      setSongs(results);
     } catch (err) {
       console.error(err);
     } finally {
@@ -39,13 +39,13 @@ export default function ArtistPage() {
 
   return (
     <div style={{ padding: "40px" }}>
-      <h1>Artists</h1>
+      <h1>Songs</h1>
 
       <div style={{ marginBottom: "20px" }}>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search artists"
+          placeholder="Search songs"
         />
         <button onClick={handleSearch}>Search</button>
       </div>
@@ -53,8 +53,8 @@ export default function ArtistPage() {
       {loading && <p>Loading...</p>}
 
       <div style={{ display: "grid", gap: "16px" }}>
-        {artists.map((artist) => (
-          <ArtistCard key={artist.id} artist={artist} />
+        {songs.map((song) => (
+          <SongCard key={song.id} song={song} />
         ))}
       </div>
     </div>

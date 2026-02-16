@@ -22,13 +22,36 @@ A Social Music Connection and Discussion application
 
 ## Tech Stack
 
-Frontend :
-
-* React VITE, VS Code
-
 Backend :
 
 * Java, Spring Boot, IntelliJ, Postgres
 
 * ClickUp, Notion
 
+Frontend :
+
+* React VITE, VS Code
+
+
+## How to run
+
+Backend:
+
+Navigate to backend folder
+
+- ./mvnw spring-boot:run
+
+http://localhost:8080/health 
+
+- In browser, above should work
+
+
+Frontend:
+
+Navigate to frontend folder
+
+Need to have [Future Implementation] requirements.txt downloaded
+
+- npm run dev
+
+http://localhost:5173/

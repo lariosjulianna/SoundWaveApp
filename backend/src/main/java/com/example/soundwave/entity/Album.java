@@ -1,10 +1,16 @@
 package com.example.soundwave.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
 @Entity
 @Table(name = "albums")
+@Getter
+@Setter
+
 public class Album {
 
     @Id
@@ -17,39 +23,17 @@ public class Album {
     @ManyToOne
     private Artist artist;
 
-    public Album() {}
+
+    /**
+     * Constructors
+     */
+
+    public Album() {
+    }
 
     public Album(String title, Artist artist) {
 
         this.title = title;
-        this.artist = artist;
-    }
-
-    // Getters and setters
-    public UUID getId() {
-
-        return id;
-    }
-
-    public String getTitle() {
-
-        return title;
-    }
-
-    public Artist getArtist() {
-
-        return artist;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setArtist(Artist artist) {
         this.artist = artist;
     }
 }

@@ -4,16 +4,16 @@ import com.example.soundwave.dto.musicbrainz.AlbumDto;
 import java.util.List;
 
 /**
- * Service interface for artist-related business logic.
+ * Service interface for album-related business logic
  *
  * This layer abstracts where artist data comes from
- * (MusicBrainz, database, cache, etc.).
+ * (MusicBrainz, database, cache, etc.)
  */
 
 public interface AlbumService {
 
     /**
-     * Returns a list of random albums.
+     * Returns a list of random albums
      *
      * @return list of AlbumDto
      */
@@ -22,7 +22,7 @@ public interface AlbumService {
 
 
     /**
-     * Search for albums by name.
+     * Search for albums by name
      *
      * @param query search keyword
      * @return list of matching albums
@@ -32,7 +32,7 @@ public interface AlbumService {
 
 
     /**
-     * Fetch a single Album by ID.
+     * Fetch a single album by ID
      *
      * @param albumId MusicBrainz album ID
      * @return AlbumDto

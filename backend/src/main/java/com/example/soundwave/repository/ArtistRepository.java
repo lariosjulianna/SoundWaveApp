@@ -2,7 +2,7 @@
 package com.example.soundwave.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 import com.example.soundwave.entity.Artist;
 
@@ -11,5 +11,5 @@ import com.example.soundwave.entity.Artist;
     
 // }
 public interface ArtistRepository extends JpaRepository<Artist, UUID> {
-    Optional<Artist> findByName(String name);
+    List<Artist> findByName(String name);
 }
