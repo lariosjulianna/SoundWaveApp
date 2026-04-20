@@ -1,84 +1,63 @@
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { getAlbumsByArtist } from "../services/albumService";
-
-
-// export default function AlbumsPage() {
-//   const { id } = useParams();
-//   const [albums, setAlbums] = useState([]);
-
-//   useEffect(() => {
-//     getAlbumsByArtist(artistId)
-//       .then(setAlbums)
-//       .catch(console.error);
-//   }, [artistId]);
-
-//   return (
-//     <div>
-//       <h1>Albums</h1>
-
-//       {albums.length === 0 && <p>No albums found.</p>}
-
-//       <ul>
-//         {albums.map((album) => (
-//           <li key={album.id}>{album.title}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getAlbumsByArtist } from "../services/albumService";
+import { getRandomAlbums, searchAlbums } from "../services/albumService";
+import AlbumCard from "../components/AlbumCard";
 
-export default function AlbumsPage() {
-  const { id } = useParams(); // must match route param
+export default function AlbumPage() {
   const [albums, setAlbums] = useState([]);
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchAlbums = async () => {
+      loadRandom();
+    }, []);
+  
+    const loadRandom = async () => {
       try {
         setLoading(true);
-        const data = await getAlbumsByArtist(id);
+        const data = await getRandomAlbums();
         setAlbums(data);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
+  
+    const handleSearch = async () => {
+      if (!query.trim()) return loadRandom();
+  
+      try {
+        setLoading(true);
+        const results = await searchAlbums(query);
+        setAlbums(results);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    return (
+      <div style={{ padding: "40px" }}>
+        <h1>Albums</h1>
+  
+        <div style={{ marginBottom: "20px" }}>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search albums"
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+  
+        {loading && <p>Loading...</p>}
 
-    if (id) {
-      fetchAlbums();
-    }
-  }, [id]);
-
-  return (
-    <div style={{ padding: "40px" }}>
-      <h1>Albums</h1>
-
-      {loading && <p>Loading albums...</p>}
-
-      {!loading && albums.length === 0 && (
-        <p>No albums found.</p>
-      )}
-
-      <div style={{ display: "grid", gap: "12px" }}>
-        {albums.map((album) => (
-          <div
-            key={album.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "12px",
-              borderRadius: "8px",
-            }}
-          >
-            💿 {album.title}
-          </div>
-        ))}
+        <div style={{ display: "grid", gap: "16px" }}>
+          {albums.map((album) => (
+            <AlbumCard key={album.id} album={album} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+  

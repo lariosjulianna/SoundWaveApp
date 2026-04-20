@@ -1,23 +1,26 @@
 package com.example.soundwave.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 
-/** Configuration class exposes a RestTemplate bean
- *
- * RestTemplate is used to make HTTP requests to external services
- * @Bean allows it to be injected anywhere in the app
- */
+import java.util.List;
 
 @Configuration
 public class RestTemplateConfig {
-    // Creates and registers a RestTemplate bean in spring context
 
     @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+    public RestTemplate restTemplate(
+            @Value("${musicbrainz.user-agent:SoundWave/0.1 (https://github.com/example/soundwave)}") String userAgent
+    ) {
+        RestTemplate restTemplate = new RestTemplate();
+        ClientHttpRequestInterceptor ua = (request, body, execution) -> {
+            request.getHeaders().set("User-Agent", userAgent);
+            return execution.execute(request, body);
+        };
+        restTemplate.setInterceptors(List.of(ua));
+        return restTemplate;
     }
 }
-
-// Newer projs use WebClient, but RestTemplate is ok for now

@@ -1,5 +1,6 @@
 package com.example.soundwave.controller;
 
+import com.example.soundwave.dto.musicbrainz.AlbumDto;
 import com.example.soundwave.dto.musicbrainz.ArtistDto;
 import com.example.soundwave.service.ArtistService;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,16 @@ public class ArtistController {
     @GetMapping("/search")
     public List<ArtistDto> searchArtists(@RequestParam String q) {
         return artistService.searchArtists(q);
+    }
+
+
+    /**
+     * Albums (release groups) for an artist
+     */
+
+    @GetMapping("/{artistId}/albums")
+    public List<AlbumDto> getArtistAlbums(@PathVariable String artistId) {
+        return artistService.getAlbumsForArtist(artistId);
     }
 
 

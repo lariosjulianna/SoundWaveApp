@@ -18,4 +18,20 @@ export async function searchAlbums(query) {
   return response.json();
 }
 
-// need for get album by Id
+export async function getAlbumById(albumId) {
+  const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(albumId)}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch album");
+  }
+  return response.json();
+}
+
+export async function getSongsForAlbum(albumId) {
+  const response = await fetch(
+    `${API_BASE_URL}/${encodeURIComponent(albumId)}/songs`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch album songs");
+  }
+  return response.json();
+}

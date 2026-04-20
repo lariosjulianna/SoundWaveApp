@@ -6,17 +6,19 @@ public class AlbumDto {
 
     private final UUID id;
     private final String title;
-    private final UUID artistId;
+    //private final UUID artistId;
+    private final String artistName;
 
 
     /**
      * Constructor
      */
 
-    public AlbumDto(UUID id, String title, UUID artistId) {
+    public AlbumDto(UUID id, String title, String artistName) {
         this.id = id;
         this.title = title;
-        this.artistId = artistId;
+        //this.artistId = artistId;
+        this.artistName = artistName;
     }
 
 
@@ -32,8 +34,12 @@ public class AlbumDto {
         return title;
     }
 
-    public UUID getArtistId() {
-        return artistId;
+//    public UUID getArtistId() {
+//        return artistId;
+//    }
+
+    public String getArtistName() {
+        return artistName;
     }
 }
 //    // setters

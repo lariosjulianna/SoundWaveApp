@@ -1,21 +1,30 @@
-import { useNavigate } from "react-router-dom";
+// import Feed from "../components/Feed";
+// import Sidebar from "../components/Sidebar";
+// import DiscoverPanel from "../components/DiscoverPanel";
 
-function Dashboard() {
-  const navigate = useNavigate();
+// function HomePage() {
+//   return (
+//     <div className="home-container">
+//       <Sidebar />
+//       <Feed />
+//       <DiscoverPanel />
+//     </div>
+//   );
+// }
 
-  const cardStyle = {
-    padding: "30px",
-    borderRadius: "12px",
-    background: "#1e1e1e",
-    color: "white",
-    cursor: "pointer",
-    textAlign: "center",
-    fontSize: "18px",
-    fontWeight: "bold",
-  };
+// export default HomePage;
 
+import HomeCard from "../components/HomeCard";
+
+export default function HomePage() {
   return (
-    <div style={{ padding: "40px", minHeight: "100vh", background: "#121212" }}>
+    <div
+      style={{
+        padding: "40px",
+        minHeight: "100vh",
+        background: "#121212",
+      }}
+    >
       <h1 style={{ color: "white" }}>SoundWave Dashboard</h1>
 
       <div
@@ -26,24 +35,11 @@ function Dashboard() {
           marginTop: "30px",
         }}
       >
-        <div style={cardStyle} onClick={() => navigate("/artists")}>
-          🎤 Artists
-        </div>
-
-        <div style={cardStyle} onClick={() => navigate("/albums")}>
-          💿 Albums
-        </div>
-
-        <div style={cardStyle} onClick={() => navigate("/songs")}>
-          🎵 Songs
-        </div>
-
-        <div style={cardStyle} onClick={() => navigate("/feed")}>
-          📰 Feed
-        </div>
+        <HomeCard title="Artists" route="/artists" icon="🎤" />
+        <HomeCard title="Albums" route="/albums" icon="💿" />
+        <HomeCard title="Songs" route="/songs" icon="🎵" />
+        <HomeCard title="Feed" route="/posts" icon="📰" />
       </div>
     </div>
   );
 }
-
-export default Dashboard;

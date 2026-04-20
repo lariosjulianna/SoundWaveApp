@@ -3,6 +3,7 @@ package com.example.soundwave.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.UUID;
 
 
@@ -10,15 +11,10 @@ import java.util.UUID;
 @Table(name = "users")
 @Getter
 @Setter
-
-/**
- * Using Lombok for Getters/Setters
- */
-
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)

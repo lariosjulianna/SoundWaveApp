@@ -1,34 +1,27 @@
-// import { useNavigate } from "react-router-dom";
-
-// export default function AlbumCard({ album }) {
-//   const navigate = useNavigate();
-
-//   const handleClick = () => {
-//     navigate(`/albums/${album.id}/songs`);
-//   };
-
-//   return (
-//     <div
-//       onClick={handleClick}
-//       style={{
-//         border: "1px solid #ccc",
-//         padding: "12px",
-//         marginBottom: "8px",
-//         cursor: "pointer",
-//       }}
-//     >
-//       <h3>{album.title}</h3>
-//       <p>Release date: {album.releaseDate || "Unknown"}</p>
-//     </div>
-//   );
-// }
-
+// React router hook -- for programmatic navigation
 import { useNavigate } from "react-router-dom";
 
+/**
+ * AlbumCard Component
+ * 
+ * Displays a clickable card for single albums
+ * When clicked, sends user to album's songs pages (TBD)
+ *
+ */
+
 export default function AlbumCard({ album }) {
+  // Hook that allows navigation without <Link>
   const navigate = useNavigate();
 
+
+  // prevents rendering if there is no album data
   if (!album) return null;
+
+
+  /**
+   * Handles card click event
+   * Navigate to album's songs route using albumId
+   */
 
   const handleClick = () => {
     navigate(`/albums/${album.id}/songs`);
@@ -36,7 +29,7 @@ export default function AlbumCard({ album }) {
 
   return (
     <div
-      onClick={handleClick}
+      onClick={handleClick} // makes entire card clickable
       style={{
         border: "1px solid #ccc",
         padding: "12px",
@@ -45,8 +38,11 @@ export default function AlbumCard({ album }) {
         borderRadius: "8px",
       }}
     >
+      {/* Album title */}
       <h3>{album.title}</h3>
-      <p>Artist: {album.artistId || "Unknown"}</p>
+
+      {/* Displays associated artist or fallback if missing */}
+      <p>Artist: {album.artist?.name || "Unknown"}</p>
     </div>
   );
 }

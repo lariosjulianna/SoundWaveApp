@@ -18,4 +18,20 @@ export async function searchArtists(query) {
   return response.json();
 }
 
-// need for get artist by Id
+export async function getArtistById(artistId) {
+  const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(artistId)}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch artist");
+  }
+  return response.json();
+}
+
+export async function getAlbumsForArtist(artistId) {
+  const response = await fetch(
+    `${API_BASE_URL}/${encodeURIComponent(artistId)}/albums`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch artist albums");
+  }
+  return response.json();
+}

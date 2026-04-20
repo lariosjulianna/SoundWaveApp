@@ -1,6 +1,7 @@
 package com.example.soundwave.service;
 
 import com.example.soundwave.dto.musicbrainz.AlbumDto;
+import com.example.soundwave.dto.musicbrainz.SongDto;
 import java.util.List;
 
 /**
@@ -39,4 +40,9 @@ public interface AlbumService {
      */
 
     AlbumDto getAlbumById(String albumId);
+
+    /**
+     * Tracks (recordings) associated with this release group.
+     */
+    List<SongDto> getSongsForAlbum(String albumId);
 }

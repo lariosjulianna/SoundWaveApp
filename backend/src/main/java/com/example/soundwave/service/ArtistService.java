@@ -39,4 +39,9 @@ public interface ArtistService {
      */
 
     ArtistDto getArtistById(String artistId);
+
+    /**
+     * Albums (release groups) for this artist.
+     */
+    List<AlbumDto> getAlbumsForArtist(String artistId);
 }

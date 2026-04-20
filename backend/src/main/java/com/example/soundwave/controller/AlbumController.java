@@ -1,6 +1,7 @@
 package com.example.soundwave.controller;
 
 import com.example.soundwave.dto.musicbrainz.AlbumDto;
+import com.example.soundwave.dto.musicbrainz.SongDto;
 import com.example.soundwave.service.AlbumService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -48,6 +49,16 @@ public class AlbumController {
     public List<AlbumDto> searchAlbums(@RequestParam String q) {
 
         return albumService.searchAlbums(q);
+    }
+
+
+    /**
+     * Recordings for this release group (album)
+     */
+
+    @GetMapping("/{albumId}/songs")
+    public List<SongDto> getAlbumSongs(@PathVariable String albumId) {
+        return albumService.getSongsForAlbum(albumId);
     }
 
 

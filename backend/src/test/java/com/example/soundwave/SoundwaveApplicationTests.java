@@ -1,4 +1,4 @@
-package backend.src.test.java.com.example.soundwave;
+package com.example.soundwave;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

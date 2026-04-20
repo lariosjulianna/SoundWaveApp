@@ -18,4 +18,10 @@ export async function searchSongs(query) {
   return response.json();
 }
 
-// need for get song by Id
+export async function getSongById(songId) {
+  const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(songId)}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch song");
+  }
+  return response.json();
+}

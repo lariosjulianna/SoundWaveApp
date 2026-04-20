@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function ArtistCard({ album }) {
+export default function ArtistCard({ artist }) {
   const navigate = useNavigate();
 
   if (!artist) return null;

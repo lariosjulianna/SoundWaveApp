@@ -43,8 +43,6 @@ Navigate to backend folder
 
 http://localhost:8080/health 
 
-- In browser, above should work
-
 
 Frontend:
 

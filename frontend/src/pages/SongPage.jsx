@@ -14,7 +14,7 @@ export default function SongPage() {
   const loadRandom = async () => {
     try {
       setLoading(true);
-      const data = await getRandomASongs();
+      const data = await getRandomSongs();
       setSongs(data);
     } catch (err) {
       console.error(err);
@@ -50,7 +50,7 @@ export default function SongPage() {
         <button onClick={handleSearch}>Search</button>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p>Loading... Songs...</p>}
 
       <div style={{ display: "grid", gap: "16px" }}>
         {songs.map((song) => (

@@ -1,98 +1,77 @@
 package com.example.soundwave.service.impl;
 
 import com.example.soundwave.dto.musicbrainz.PostDto;
+import com.example.soundwave.entity.Post;
+import com.example.soundwave.exception.ResourceNotFoundException;
+import com.example.soundwave.repository.PostRepository;
 import com.example.soundwave.service.PostService;
 import org.springframework.stereotype.Service;
-import java.time.Instant;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-/**
- * Implementation of PostService
- *
- * Returns dummy data for dev
- * Later backed external API (MusicBrainz)
- *
- * Delegates external API calls to MusicBrainzService
- */
-
 @Service
+@Transactional(readOnly = true)
 public class PostServiceImpl implements PostService {
 
-    /**
-     * Temporary in-mem post list
-     */
+    private final PostRepository postRepository;
 
-    private static final List<PostDto> POSTS = List.of(
-            new PostDto(
-                    UUID.fromString("11111111-1111-1111-1111-111111111111"),
-                    UUID.fromString("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
-                    Instant.now(),
-                    UUID.fromString("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
-                    "This song is insane 🔥"
-            ),
-            new PostDto(
-                    UUID.fromString("22222222-2222-2222-2222-222222222222"),
-                    UUID.fromString("cccccccc-cccc-cccc-cccc-cccccccccccc"),
-                    Instant.now(),
-                    UUID.fromString("dddddddd-dddd-dddd-dddd-dddddddddddd"),
-                    "Album of the year."
-            )
-    );
-
-
-    /**
-     * Returns random posts
-     */
+    public PostServiceImpl(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     @Override
     public List<PostDto> getRandomPosts() {
-        return POSTS;
+        List<Post> posts = postRepository.findTop50ByOrderByCreatedAtDesc();
+        if (posts.isEmpty()) {
+            return List.of();
+        }
+        List<Post> shuffled = posts.stream().collect(Collectors.toList());
+        Collections.shuffle(shuffled);
+        int limit = Math.min(20, shuffled.size());
+        return shuffled.subList(0, limit).stream()
+                .map(PostServiceImpl::toDto)
+                .collect(Collectors.toList());
     }
-
-
-    /**
-     * Search posts by content
-     */
 
     @Override
     public List<PostDto> searchPosts(String query) {
         if (query == null || query.isBlank()) {
             return List.of();
         }
-
-        String normalized = query.toLowerCase();
-
-        return POSTS.stream()
-                .filter(post -> post.getContent().toLowerCase().contains(normalized))
+        return postRepository.findByContentContainingIgnoreCase(query.trim()).stream()
+                .map(PostServiceImpl::toDto)
                 .collect(Collectors.toList());
     }
 
-
-    /**
-     * Get a single post by ID
-     */
-
     @Override
     public PostDto getPostById(String postId) {
-        return POSTS.stream()
-                .filter(post -> post.getId().toString().equals(postId))
-                .findFirst()
-                .orElseThrow(() ->
-                        new IllegalArgumentException("Post not found: " + postId)
-                );
+        UUID id = parsePostId(postId);
+        Post post = postRepository.findFetchedById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found: " + postId));
+        return toDto(post);
     }
 
-//    @Override
-//    public List<PostDto> getPostsByTopic(UUID topicId, Post.TopicType topicType) {
-//        return POSTS.stream()
-//                .filter(post ->
-//                        post.getTopicId().equals(topicId) &&
-//                                post.getTopicType() == topicType
-//                )
-//                .collect(Collectors.toList());
-//    }
+    private static UUID parsePostId(String postId) {
+        try {
+            return UUID.fromString(postId);
+        } catch (IllegalArgumentException e) {
+            throw new ResourceNotFoundException("Post not found: " + postId);
+        }
+    }
 
+    private static PostDto toDto(Post post) {
+        return new PostDto(
+                post.getId(),
+                post.getUser().getUsername(),
+                post.getTopicId(),
+                post.getTopicType().name(),
+                post.getTopicName(),
+                post.getContent(),
+                post.getCreatedAt()
+        );
+    }
 }
-

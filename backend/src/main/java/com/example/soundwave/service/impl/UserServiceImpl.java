@@ -1,83 +1,69 @@
 package com.example.soundwave.service.impl;
 
 import com.example.soundwave.dto.musicbrainz.UserDto;
+import com.example.soundwave.entity.User;
+import com.example.soundwave.exception.ResourceNotFoundException;
+import com.example.soundwave.repository.UserRepository;
 import com.example.soundwave.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-/**
- * Implementation of UserService
- *
- * Returns dummy data for dev
- * Later db access
- */
-
 @Service
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
-    /**
-     * Temporary in-mem user list
-     */
+    private final UserRepository userRepository;
 
-    private static final List<UserDto> USERS = List.of(
-            new UserDto(
-                    UUID.randomUUID(),
-                    "joe",
-                    "joemama",
-                    "joe@gmail.com"
-
-            ),
-            new UserDto(
-                    UUID.randomUUID(),
-                    "lee",
-                    "leemama",
-                    "lee@gmail.com"
-
-            )
-    );
-
-
-    /**
-     * Returns random users
-     */
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<UserDto> getRandomUsers() {
-        return USERS;
+        return userRepository.findTop50ByOrderByUsernameAsc().stream()
+                .map(UserServiceImpl::toDto)
+                .collect(Collectors.toList());
     }
-
-
-    /**
-     * Search users by username
-     */
 
     @Override
     public List<UserDto> searchUsers(String query) {
         if (query == null || query.isBlank()) {
             return List.of();
         }
-
-        String normalized = query.toLowerCase();
-
-        return USERS.stream()
-                .filter(user -> user.getName().toLowerCase().contains(normalized))
+        String needle = query.trim();
+        return userRepository
+                .findByNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(needle, needle)
+                .stream()
+                .map(UserServiceImpl::toDto)
                 .collect(Collectors.toList());
     }
 
-
-    /**
-     * Get a single user by Id
-     */
-
     @Override
     public UserDto getUserById(String userId) {
-        return USERS.stream()
-                .filter(user -> user.getId().toString().equals(userId))
-                .findFirst()
-                .orElseThrow(() ->
-                        new IllegalArgumentException("User not found: " + userId)
-                );
+        UUID id = parseUserId(userId);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
+        return toDto(user);
+    }
+
+    private static UUID parseUserId(String userId) {
+        try {
+            return UUID.fromString(userId);
+        } catch (IllegalArgumentException e) {
+            throw new ResourceNotFoundException("User not found: " + userId);
+        }
+    }
+
+    private static UserDto toDto(User user) {
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getUsername(),
+                user.getEmail()
+        );
     }
 }
